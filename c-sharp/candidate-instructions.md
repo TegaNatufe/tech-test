@@ -4,7 +4,7 @@ This test is an extremely simplified and rather contrived example of what a risk
 
 For the purposes of this test, imagine that this is a new system that was originally developed only to handle government bonds and is now being extended to handle corporate bonds and FX. As a result the system needs to be enhanced.
 
-All of the below exercises should be performed as though you are working on a real risk system. You should feel free to refactor any code as you see fit and you should always attempt to reuse as much code and possible and write the minimum amount of new code.
+All of the below exercises should be performed as though you are working on a real risk system. **You should feel free to refactor any code as you see fit and you should always attempt to reuse as much code and possible and write the minimum amount of new code.**
 
 Apart from the exercises where you are asked to write or modify unit tests, none of the other unit tests should be modified.
 
