@@ -1,0 +1,89 @@
+# Java Technical Test
+
+This repository contains the solution for a Java Technical Test, focusing on a simplified microservice-based architecture. The project involves completing unfinished functionality related to saving arbitrary bank data blocks to an in-memory embedded database and interacting with external services.
+
+## Scenario Overview
+
+The core of this test is a Spring Boot application that simulates a data platform. It includes a `client` component responsible for interacting with a `server` component. The `server` handles data persistence and interacts with other simulated services. The primary goal is to complete several exercises to implement and enhance the data flow, persistence, and API interactions.
+
+## Guidelines
+
+* **Technology Stack**: Java, Spring Boot, H2 Database (in-memory embedded).
+* **Time Allotment**: This test is designed to be completed within approximately 2 hours.
+* **Allowed Resources**: Candidates are permitted to use reference materials.
+* **Dependencies**: No new build dependencies are allowed.
+* **Code Quality**: Solutions must adhere to best practices, emphasizing code reusability, leveraging the Spring Framework, and minimizing code.
+* **Production Readiness**: Treat this project as production code. High code coverage, thorough test scenarios, and consideration of potential microservice/API architecture issues are crucial.
+* **Refactoring**: Existing code can be refactored if deemed not production-ready.
+* **Database Transactions**: Transaction boundaries must be carefully considered.
+* **Deliverables**:
+    * The final solution must compile.
+    * All tests must pass.
+    * The Spring Boot application should start successfully.
+    * The solution should be pushed to a personal GitHub repository, and its details emailed as instructed.
+
+## Exercises
+
+The following exercises outline the unfinished functionality to be completed:
+
+### Exercise 1: Push Data from Client to Server
+
+Update the `client` to push a block of data via an existing HTTP API on the test `server`.
+
+* **Client Method**: `com.db.dataplatform.techtest.client.component.impl.ClientImpl.pushData`
+* **Server Endpoint**: Exposed in `com.db.dataplatform.techtest.server.api.controller.ServerController`
+
+### Exercise 2: MD5 Checksum Calculation and Validation
+
+Add functionality to the `server` to calculate and persist an MD5 checksum of the body of an incoming data block. The endpoint must return to the client whether the hash matches a client-provided checksum. The system policy dictates that invalid data (mismatched checksums) is considered wasted space.
+
+### Exercise 3: Retrieve Blocks by Type
+
+Expand `server` functionality to expose a new `GET` endpoint to obtain all persisted blocks that have a given `blockType`. Update the `client` to call this new endpoint.
+
+### Exercise 4: Update Block Type
+
+Add a new endpoint to the `server` with an appropriate HTTP verb (`PUT` or `PATCH`), to update an existing block's `blockType`. The block to update can be identified uniquely in the persistence store by its `blockName`. Add at least API input validation for the `blockName`. Update the `client` to call the new update endpoint.
+
+### Exercise 5: Push Data to Hadoop Data Lake
+
+In the existing `server` push data endpoint, in addition to persistence, add functionality to push data to the bank’s Hadoop data lake.
+
+* **Data Lake Service Endpoint**: `http://localhost:8090/hadoopserver/pushbigdata`
+* **Request Method**: `POST`
+* **Payload**: The `POST` request body should be a string containing the data block.
+* **Considerations**: The data lake is a new service; instability and long-running calls can be expected. Asynchronous communication or robust error handling should be considered.
+
+## How to Run
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone <your-repository-url>
+    cd <your-repository-name>
+    ```
+2.  **Build the Project**:
+    ```bash
+    ./mvnw clean install
+    ```
+3.  **Run the Spring Boot Application**:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+    Alternatively, you can run the `Application` class directly from your IDE.
+
+## Testing
+
+Comprehensive unit and integration tests are expected.
+
+* **Run All Tests**:
+    ```bash
+    ./mvnw test
+    ```
+
+## Contributing
+
+This is a technical test, so direct contributions are not expected in the traditional sense. However, if you find any issues or have suggestions for improvement *after* the test submission, please feel free to open an issue.
+
+## License
+
+(You would typically add your license information here, e.g., MIT License, Apache 2.0 License, etc.)
