@@ -3,6 +3,7 @@ package org.hmxlabs.techtest;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +17,16 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories("com.db.dataplatform.techtest")
+@EnableJpaRepositories("org.hmxlabs.techtest.server.persistence.repository")
+@EntityScan("org.hmxlabs.techtest.server.persistence.*")
 public class EmbeddedDataSourceConfiguration {
 
     public static final String DATA_SOURCE = "dataSource";
     public static final String CLASSPATH_DB_MIGRATION_SETUP_SQL = "classpath:db.migration/setup.sql";
-    public static final String PACKAGE_MODEL = "com.db.dataplatform.techtest.server.persistence.model";
+    public static final String PACKAGE_MODEL = "org.hmxlabs.techtest.server.persistence.*";
 
     @Bean(name = DATA_SOURCE)
-    DataSource dataSource() {
+    public DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDataSource(new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)

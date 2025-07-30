@@ -11,7 +11,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
@@ -20,6 +22,8 @@ import java.time.Instant;
 @Table(name = "DATA_STORE")
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class DataBodyEntity {
 
     @Id
