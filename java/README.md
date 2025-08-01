@@ -1,10 +1,10 @@
 # Java Technical Test
 
-This repository contains the solution for a Java Technical Test, focusing on a simplified microservice-based architecture. The project involves completing unfinished functionality related to saving arbitrary bank data blocks to an in-memory embedded database and interacting with external services.
+This repository contains a Java technical test project, focusing on a simplified microservice-based architecture. The project involves completing unfinished functionality related to saving arbitrary bank data blocks to a database and interacting with external services.
 
 ## Scenario Overview
 
-The core of this test is a Spring Boot application that simulates a data platform. It includes a `client` component responsible for interacting with a `server` component. The `server` handles data persistence and interacts with other simulated services. The primary goal is to complete several exercises to implement and enhance the data flow, persistence, and API interactions.
+The core of this test is a Spring Boot application that simulates a data platform. It includes a `client` component responsible for interacting with a `server` component. The `server` handles data persistence and interacts with other simulated services. The primary goal is to complete several tasls to implement and enhance the data flow, persistence, and API interactions.
 
 ## Guidelines
 
@@ -30,8 +30,8 @@ The following exercises outline the unfinished functionality to be completed:
 
 Update the `client` to push a block of data via an existing HTTP API on the test `server`.
 
-* **Client Method**: `com.db.dataplatform.techtest.client.component.impl.ClientImpl.pushData`
-* **Server Endpoint**: Exposed in `com.db.dataplatform.techtest.server.api.controller.ServerController`
+* **Client Method**: `org.hmxlabs.techtest.client.component.impl.ClientImpl.pushData()`
+* **Server Endpoint**: Exposed in `org.hmxlabs.techtest.server.api.controller.ServerController`
 
 ### Exercise 2: MD5 Checksum Calculation and Validation
 
@@ -39,11 +39,11 @@ Add functionality to the `server` to calculate and persist an MD5 checksum of th
 
 ### Exercise 3: Retrieve Blocks by Type
 
-Expand `server` functionality to expose a new `GET` endpoint to obtain all persisted blocks that have a given `blockType`. Update the `client` to call this new endpoint.
+Expand `server` functionality to expose a new API endpoint to get all persisted blocks that have a given `blockType`. Update the `client` to call this new endpoint.
 
 ### Exercise 4: Update Block Type
 
-Add a new endpoint to the `server` with an appropriate HTTP verb (`PUT` or `PATCH`), to update an existing block's `blockType`. The block to update can be identified uniquely in the persistence store by its `blockName`. Add at least API input validation for the `blockName`. Update the `client` to call the new update endpoint.
+Add a new endpoint to the `server` with an appropriate HTTP verb to update an existing block's `blockType`. The block to update can be identified uniquely in the persistence store by its `blockName`. Add at least API input validation for the `blockName`. Update the `client` to call the new update endpoint.
 
 ### Exercise 5: Push Data to Hadoop Data Lake
 
