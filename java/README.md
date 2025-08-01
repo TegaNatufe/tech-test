@@ -53,37 +53,3 @@ In the existing `server` push data endpoint, in addition to persistence, add fun
 * **Request Method**: `POST`
 * **Payload**: The `POST` request body should be a string containing the data block.
 * **Considerations**: The data lake is a new service; instability and long-running calls can be expected. Asynchronous communication or robust error handling should be considered.
-
-## How to Run
-
-1.  **Clone the Repository**:
-    ```bash
-    git clone <your-repository-url>
-    cd <your-repository-name>
-    ```
-2.  **Build the Project**:
-    ```bash
-    ./mvnw clean install
-    ```
-3.  **Run the Spring Boot Application**:
-    ```bash
-    ./mvnw spring-boot:run
-    ```
-    Alternatively, you can run the `Application` class directly from your IDE.
-
-## Testing
-
-Comprehensive unit and integration tests are expected.
-
-* **Run All Tests**:
-    ```bash
-    ./mvnw test
-    ```
-
-## Contributing
-
-This is a technical test, so direct contributions are not expected in the traditional sense. However, if you find any issues or have suggestions for improvement *after* the test submission, please feel free to open an issue.
-
-## License
-
-(You would typically add your license information here, e.g., MIT License, Apache 2.0 License, etc.)
