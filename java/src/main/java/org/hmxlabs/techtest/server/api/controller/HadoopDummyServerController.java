@@ -38,7 +38,7 @@ public class HadoopDummyServerController {
         Thread.sleep(workDuration);
 
         if(workDuration > 3000) {
-            log.info("Hadoop back end has timed out");
+            log.warn("Hadoop back end has timed out");
             return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).build();
         }
 
