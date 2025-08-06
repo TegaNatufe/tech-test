@@ -9,7 +9,6 @@ The core of this test is a Spring Boot application that simulates a data platfor
 ## Guidelines
 
 * **Technology Stack**: Java, Spring Boot, H2 Database (in-memory embedded).
-* **Time Allotment**: This test is designed to be completed within approximately 2 hours.
 * **Allowed Resources**: Candidates are permitted to use reference materials.
 * **Dependencies**: No new build dependencies are allowed.
 * **Code Quality**: Solutions must adhere to best practices, emphasizing code reusability, leveraging the Spring Framework, and minimizing code.
