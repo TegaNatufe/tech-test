@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriTemplate;
+import reactor.util.retry.Retry;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class ClientImpl implements Client {
                 .bodyValue(dataEnvelope)
                 .retrieve()
                 .toBodilessEntity()
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2)))
                 .toFuture();
     }
 
