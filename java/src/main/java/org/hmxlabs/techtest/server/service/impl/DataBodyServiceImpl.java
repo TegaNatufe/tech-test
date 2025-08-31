@@ -23,11 +23,15 @@ public class DataBodyServiceImpl implements DataBodyService {
 
     @Override
     public List<DataBodyEntity> getDataByBlockType(BlockTypeEnum blockType) {
-        return null;
+        return dataStoreRepository.findAll().stream()
+                .filter((data) -> data.getDataHeaderEntity().getBlocktype() == blockType)
+                .toList();
     }
 
     @Override
     public Optional<DataBodyEntity> getDataByBlockName(String blockName) {
-        return null;
+        return dataStoreRepository.findAll().stream()
+                .filter((data) -> data.getDataHeaderEntity().getName().equals(blockName))
+                .findFirst();
     }
 }

@@ -42,6 +42,9 @@ public class DataBodyEntity {
     @Column(name = "CREATED_TIMESTAMP")
     private Instant createdTimestamp;
 
+    @Column(name = "MD5_CHECKSUM")
+    private String md5Checksum;
+
     @PrePersist
     public void setTimestamps() {
         if (createdTimestamp == null) {

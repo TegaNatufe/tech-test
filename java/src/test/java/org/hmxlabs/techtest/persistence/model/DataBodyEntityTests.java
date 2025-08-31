@@ -36,19 +36,20 @@ public class DataBodyEntityTests {
      */
     @Test
     public void checkTwoDataBodiesAreEqualAsExpected() {
+        Instant expectedTimestamp = Instant.now();
 
         DataHeaderEntity dataHeaderEntity1 = new DataHeaderEntity();
         dataHeaderEntity1.setName(TEST_NAME);
         dataHeaderEntity1.setBlocktype(BlockTypeEnum.BLOCKTYPEA);
-        dataHeaderEntity1.setCreatedTimestamp(Instant.now());
+        dataHeaderEntity1.setCreatedTimestamp(expectedTimestamp);
         DataBodyEntity dataBodyEntity1 = createTestDataBodyEntity(dataHeaderEntity1);
 
         DataHeaderEntity dataHeaderEntity2 = new DataHeaderEntity();
         dataHeaderEntity2.setName(TEST_NAME);
         dataHeaderEntity2.setBlocktype(BlockTypeEnum.BLOCKTYPEA);
-        dataHeaderEntity2.setCreatedTimestamp(Instant.now().plusSeconds(100L));
+        dataHeaderEntity2.setCreatedTimestamp(expectedTimestamp);
         DataBodyEntity dataBodyEntity2 = createTestDataBodyEntity(dataHeaderEntity2);
 
-        assertThat(dataBodyEntity1).isEqualTo(dataBodyEntity2);
+        assertThat(dataBodyEntity1).isEqualToComparingFieldByFieldRecursively(dataBodyEntity2);
     }
 }

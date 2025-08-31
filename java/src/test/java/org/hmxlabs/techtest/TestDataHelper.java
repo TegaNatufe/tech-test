@@ -15,12 +15,26 @@ public class TestDataHelper {
     public static final String TEST_NAME_EMPTY = "";
     public static final String DUMMY_DATA = "AKCp5fU4WNWKBVvhXsbNhqk33tawri9iJUkA5o4A6YqpwvAoYjajVw8xdEw6r9796h1wEp29D";
 
+    public static final Instant TEST_TIMESTAMP = Instant.now();
+
     public static DataHeaderEntity createTestDataHeaderEntity(Instant expectedTimestamp) {
         DataHeaderEntity dataHeaderEntity = new DataHeaderEntity();
         dataHeaderEntity.setName(TEST_NAME);
         dataHeaderEntity.setBlocktype(BlockTypeEnum.BLOCKTYPEA);
         dataHeaderEntity.setCreatedTimestamp(expectedTimestamp);
         return dataHeaderEntity;
+    }
+
+    public static DataBodyEntity createTestDataBodyEntityWithBlockType(String name, BlockTypeEnum blockType) {
+        DataHeaderEntity dataHeaderEntity = new DataHeaderEntity();
+        dataHeaderEntity.setName(name);
+        dataHeaderEntity.setBlocktype(blockType);
+        dataHeaderEntity.setCreatedTimestamp(TEST_TIMESTAMP);
+
+        DataBodyEntity dataBodyEntity = new DataBodyEntity();
+        dataBodyEntity.setDataHeaderEntity(dataHeaderEntity);
+        dataBodyEntity.setDataBody(DUMMY_DATA);
+        return dataBodyEntity;
     }
 
     public static DataBodyEntity createTestDataBodyEntity(DataHeaderEntity dataHeaderEntity) {

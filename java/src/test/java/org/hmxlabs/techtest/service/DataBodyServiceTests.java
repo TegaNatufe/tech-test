@@ -1,5 +1,6 @@
 package org.hmxlabs.techtest.service;
 
+import org.hmxlabs.techtest.server.persistence.BlockTypeEnum;
 import org.hmxlabs.techtest.server.persistence.model.DataBodyEntity;
 import org.hmxlabs.techtest.server.persistence.model.DataHeaderEntity;
 import org.hmxlabs.techtest.server.persistence.repository.DataStoreRepository;
@@ -12,12 +13,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 
-import static org.hmxlabs.techtest.TestDataHelper.createTestDataBodyEntity;
-import static org.hmxlabs.techtest.TestDataHelper.createTestDataHeaderEntity;
+import static org.hmxlabs.techtest.TestDataHelper.*;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class DataBodyServiceTests {
@@ -46,4 +48,86 @@ public class DataBodyServiceTests {
                 .save(eq(expectedDataBodyEntity));
     }
 
+    @Test
+    public void getDataByBlockType_blockTypeAIsRequested_dataBlocksWithBlockTypeAExist_dataBlocksAreRetrievedSuccessfully() {
+        //Arrange
+        DataBodyEntity dataBlockA = createTestDataBodyEntityWithBlockType("Data block 1", BlockTypeEnum.BLOCKTYPEA);
+        DataBodyEntity dataBlockB = createTestDataBodyEntityWithBlockType("Data block 2", BlockTypeEnum.BLOCKTYPEB);
+
+        List<DataBodyEntity> dataBlocks = List.of(
+                dataBlockA,
+                dataBlockB
+        );
+
+        when(dataStoreRepositoryMock.findAll()).thenReturn(dataBlocks);
+
+        //Act
+        List<DataBodyEntity> expectedData = dataBodyService.getDataByBlockType(BlockTypeEnum.BLOCKTYPEA);
+
+        //Assert
+        assertThat(expectedData.size()).isEqualTo(1);
+        assertThat(expectedData.get(0)).isEqualTo(dataBlockA);
+    }
+
+    @Test
+    public void getDataByBlockType_blockTypeBIsRequested_onlyDataBlocksWithBlockTypeAExist_emptyListIsRetrievedSuccessfully() {
+        //Arrange
+        DataBodyEntity dataBlock1 = createTestDataBodyEntityWithBlockType("Data block 1", BlockTypeEnum.BLOCKTYPEA);
+        DataBodyEntity dataBlock2 = createTestDataBodyEntityWithBlockType("Data block 2", BlockTypeEnum.BLOCKTYPEA);
+
+        List<DataBodyEntity> dataBlocks = List.of(
+                dataBlock1,
+                dataBlock2
+        );
+
+        when(dataStoreRepositoryMock.findAll()).thenReturn(dataBlocks);
+
+        //Act
+        List<DataBodyEntity> expectedData = dataBodyService.getDataByBlockType(BlockTypeEnum.BLOCKTYPEB);
+
+        //Assert
+        assertThat(expectedData).isNotNull();
+        assertThat(expectedData.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void getDataByBlockName_dataBlockRetrievedSuccessfully() {
+        //Arrange
+        DataBodyEntity dataBlockA = createTestDataBodyEntityWithBlockType("Data block 1", BlockTypeEnum.BLOCKTYPEA);
+        DataBodyEntity dataBlockB = createTestDataBodyEntityWithBlockType("Data block 2", BlockTypeEnum.BLOCKTYPEB);
+
+        List<DataBodyEntity> dataBlocks = List.of(
+                dataBlockA,
+                dataBlockB
+        );
+
+        when(dataStoreRepositoryMock.findAll()).thenReturn(dataBlocks);
+
+        //Act
+        Optional<DataBodyEntity> expectedDataBlock = dataBodyService.getDataByBlockName("Data block 1");
+
+        //Assert
+        assertThat(expectedDataBlock.isPresent()).isEqualTo(true);
+        assertThat(expectedDataBlock.get()).isEqualTo(dataBlockA);
+    }
+
+    @Test
+    public void getDataByBlockName_dataBlockDoesNotExist_emptyOptionalRetrievedSuccessfully() {
+        //Arrange
+        DataBodyEntity dataBlockA = createTestDataBodyEntityWithBlockType("Data block 1", BlockTypeEnum.BLOCKTYPEA);
+        DataBodyEntity dataBlockB = createTestDataBodyEntityWithBlockType("Data block 2", BlockTypeEnum.BLOCKTYPEB);
+
+        List<DataBodyEntity> dataBlocks = List.of(
+                dataBlockA,
+                dataBlockB
+        );
+
+        when(dataStoreRepositoryMock.findAll()).thenReturn(dataBlocks);
+
+        //Act
+        Optional<DataBodyEntity> expectedDataBlock = dataBodyService.getDataByBlockName("Data block 3");
+
+        //Assert
+        assertThat(expectedDataBlock.isEmpty()).isEqualTo(true);
+    }
 }
