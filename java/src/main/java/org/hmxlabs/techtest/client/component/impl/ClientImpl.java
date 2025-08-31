@@ -44,7 +44,7 @@ public class ClientImpl implements Client {
                 .bodyValue(dataEnvelope)
                 .retrieve()
                 .toBodilessEntity()
-                .block();
+                .toFuture();
     }
 
     @Override
